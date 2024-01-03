@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8e66de00f7f78d7489f4f9f41b68ef1a, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -73,7 +77,7 @@ PrefabInstance:
       addedObject: {fileID: 577792282420907121}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e66de00f7f78d7489f4f9f41b68ef1a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7955823562049419353}
+      addedObject: {fileID: 5288517569550204455}
   m_SourcePrefab: {fileID: 100100000, guid: 8e66de00f7f78d7489f4f9f41b68ef1a, type: 3}
 --- !u!1 &2203185913123455445 stripped
 GameObject:
@@ -105,10 +109,10 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &7955823562049419353
-BoxCollider:
+--- !u!136 &5288517569550204455
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -125,6 +129,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7500003, y: 1.4835854, z: 0.75000024}
-  m_Center: {x: 0, y: 0.74179107, z: 0.000000026861038}
+  serializedVersion: 2
+  m_Radius: 0.58
+  m_Height: 2.5596173
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1671765, z: -0.051828623}

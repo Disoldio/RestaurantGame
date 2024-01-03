@@ -9,14 +9,16 @@ public class PlayerController : MonoBehaviour
     public float lookSpeed = 0.5f;
 
     private Vector3 lookDirection = Vector3.zero;
-    private CharacterController characterController;
+    /*private CharacterController characterController;*/
+    private Rigidbody rigidBody;
     private Quaternion currentRotation;
     private bool canMove = true;
     private float currentSpeed;
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        /*characterController = GetComponent<CharacterController>();*/
+        rigidBody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentRotation = transform.rotation;
@@ -45,20 +47,27 @@ public class PlayerController : MonoBehaviour
 
         /*lookDirection = (forward * Input.GetAxis("Vertical")) + (right * Input.GetAxis("Horizontal"));*/
 
-        characterController.Move(lookDirection * currentSpeed * Time.deltaTime);
+        /*characterController.Move(lookDirection * currentSpeed * Time.deltaTime);*/
+        rigidBody.velocity = lookDirection * currentSpeed;
+        print(rigidBody.velocity);
 
         bool isMoving =
             Input.GetAxisRaw("Horizontal") != 0 ||
             Input.GetAxisRaw("Vertical") != 0;
-        if (isMoving)
+        if (isMoving && lookDirection != Vector3.zero)
         {
+            Quaternion lookRotation = Quaternion.LookRotation(lookDirection, transform.up);
             currentRotation = Quaternion.LerpUnclamped(
                 transform.localRotation,
                 Quaternion.LookRotation(lookDirection, transform.up),
                 lookSpeed
             );
         }
-
         transform.localRotation = currentRotation;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print($"Collide with {collision.gameObject}");            
     }
 }
