@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingBoard : BaseEntity
+public class CuttingBoard : MonoBehaviour
 {
-
-    public override GameObject GetItemFromContainer()
+    public List<GameObject> GetItemsFromIngredient(Ingredient ingredient)
     {
-        return null;
-    }
-
-    public override GameObject GetItemFromContainer(Ingredient ingredient)
-    {
-        GameObject currentItem = Instantiate(ingredient.GetSlicedItem());
-        print("–¿¡Œ“¿≈“");
-        return currentItem;
+        List<GameObject> createdItems = new List<GameObject>();
+        Vector3 ingredientPos = ingredient.transform.position;
+        foreach (GameObject item in ingredient.GetSlicedItems())
+        {
+            GameObject currentItem = Instantiate(item);
+            currentItem.transform.position = ingredientPos;
+            createdItems.Add(currentItem);
+        }
+        return createdItems;
     }
 }

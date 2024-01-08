@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerInteractive : MonoBehaviour
 {
-    public float distance = 1f;
+    [SerializeField] private float distance = 1f;
+
     GameObject currentItem;
-    bool canPickUp;
-
-
+    bool canPickUp = true;
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.E)) PickUp();
@@ -32,26 +30,28 @@ public class PlayerInteractive : MonoBehaviour
 
         if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1, 0), gameObject.transform.forward, out hit, distance))
         {   
-         
-
-            if (hit.transform.GetComponent<Container>())
+            if (hit.transform.GetComponent<Container>() && canPickUp)
             {
                 Container container = hit.transform.GetComponent<Container>();
                 currentItem = container.GetItemFromContainer();
+                canPickUp = false;
             }
 
-            if(hit.transform.GetComponent<CuttingBoard>())
+            if (hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<Ingredient>())
             {
                 CuttingBoard cutting = hit.transform.GetComponent<CuttingBoard>();
                 GameObject previousItem = currentItem;
-                print(currentItem);
-                currentItem = cutting.GetItemFromContainer(previousItem.GetComponent<Ingredient>());
+                currentItem = cutting.GetItemsFromIngredient(previousItem.GetComponent<Ingredient>())[0];
                 Destroy(previousItem);
+                canPickUp = false;
             }
-            if (canPickUp) Drop();
-            if (hit.transform.tag == "Item")
+
+/*            if (canPickUp) Drop();*/
+
+            if (hit.transform.tag == "Item" && canPickUp)
             {
                 currentItem = hit.transform.gameObject;
+                canPickUp = false;
             }
 
             currentItem.GetComponent<Rigidbody>().isKinematic = true;
@@ -59,9 +59,8 @@ public class PlayerInteractive : MonoBehaviour
             currentItem.transform.localPosition = new Vector3(0, 1, 1.2f);
             currentItem.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
             currentItem.GetComponent<Collider>().enabled = false;
-            canPickUp = true;
 
-            print(hit.transform.gameObject);
+/*            canPickUp = true;*/
         }
     }
 
@@ -70,7 +69,7 @@ public class PlayerInteractive : MonoBehaviour
         currentItem.GetComponent<Collider>().enabled = true;
         currentItem.transform.parent = null;
         currentItem.GetComponent<Rigidbody>().isKinematic = false;
-        canPickUp = false;
         currentItem = null;
+        canPickUp = true;
     }
 }
