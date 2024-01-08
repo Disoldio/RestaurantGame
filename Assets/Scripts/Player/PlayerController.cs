@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
 
         /*characterController.Move(lookDirection * currentSpeed * Time.deltaTime);*/
         rigidBody.velocity = lookDirection * currentSpeed;
-        print(rigidBody.velocity);
 
         bool isMoving =
             Input.GetAxisRaw("Horizontal") != 0 ||
@@ -64,10 +63,5 @@ public class PlayerController : MonoBehaviour
             );
         }
         transform.localRotation = currentRotation;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        print($"Collide with {collision.gameObject}");            
     }
 }

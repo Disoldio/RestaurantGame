@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,14 +32,23 @@ public class PlayerInteractive : MonoBehaviour
 
         if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1, 0), gameObject.transform.forward, out hit, distance))
         {   
-            if (canPickUp) Drop();
+         
 
             if (hit.transform.GetComponent<Container>())
             {
                 Container container = hit.transform.GetComponent<Container>();
                 currentItem = container.GetItemFromContainer();
             }
-            
+
+            if(hit.transform.GetComponent<CuttingBoard>())
+            {
+                CuttingBoard cutting = hit.transform.GetComponent<CuttingBoard>();
+                GameObject previousItem = currentItem;
+                print(currentItem);
+                currentItem = cutting.GetItemFromContainer(previousItem.GetComponent<Ingredient>());
+                Destroy(previousItem);
+            }
+            if (canPickUp) Drop();
             if (hit.transform.tag == "Item")
             {
                 currentItem = hit.transform.gameObject;

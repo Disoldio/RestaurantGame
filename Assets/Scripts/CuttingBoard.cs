@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Container : BaseEntity
+public class CuttingBoard : BaseEntity
 {
-    public GameObject item;
 
     public override GameObject GetItemFromContainer()
     {
-        GameObject currentItem = Instantiate(item);
-        return currentItem;
+        return null;
     }
 
     public override GameObject GetItemFromContainer(Ingredient ingredient)
     {
-        return null;
+        GameObject currentItem = Instantiate(ingredient.GetSlicedItem());
+        print("–¿¡Œ“¿≈“");
+        return currentItem;
     }
 }
