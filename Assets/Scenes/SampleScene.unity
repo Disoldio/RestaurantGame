@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cuttingboard
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 58f7fe086ce16c2479a40b6b66c42e42, type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -304,6 +308,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58f7fe086ce16c2479a40b6b66c42e42, type: 3}
       insertIndex: -1
       addedObject: {fileID: 700231681}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58f7fe086ce16c2479a40b6b66c42e42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 700231684}
   m_SourcePrefab: {fileID: 100100000, guid: 58f7fe086ce16c2479a40b6b66c42e42, type: 3}
 --- !u!4 &37191130 stripped
 Transform:
@@ -1587,8 +1594,20 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 0.65013456, z: 1}
-  m_Center: {x: 0, y: 0.32506728, z: -0}
+  m_Size: {x: 1.5, y: 1.3033711, z: 1}
+  m_Center: {x: 0, y: 0.21968168, z: -0}
+--- !u!114 &700231684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700231678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76a74118e88fe04ab0763e02ac0ff81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,8 +1988,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1.2, z: 2.041903}
-  m_Center: {x: 0, y: 0.6, z: 0.02095151}
+  m_Size: {x: 2, y: 0.6123465, z: 2.041903}
+  m_Center: {x: 0, y: 0.30617324, z: 0.02095151}
 --- !u!1 &775772288 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 31587ab164b74744da7f19b443851914, type: 3}
@@ -3618,8 +3637,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1.2, z: 2.041903}
-  m_Center: {x: 0, y: 0.6, z: 0.02095151}
+  m_Size: {x: 2, y: 0.6123465, z: 2.041903}
+  m_Center: {x: 0, y: 0.30617324, z: 0.02095151}
 --- !u!1 &1385834154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ee054e23e8220c7498c14f51370c172c, type: 3}
