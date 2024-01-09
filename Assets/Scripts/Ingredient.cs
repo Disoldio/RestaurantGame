@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-    [SerializeField] private GameObject slicedItem;
+    [SerializeField] private List<GameObject> slicedItems;
 
-    public GameObject GetSlicedItem()
+    public List<GameObject> GetSlicedItems()
     {
-        return slicedItem;
+        return slicedItems;
     }
 }

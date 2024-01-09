@@ -53,6 +53,10 @@ PrefabInstance:
       value: Lettuce
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a8b50bf1c51aa064789b6ae87ddf1cca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a8b50bf1c51aa064789b6ae87ddf1cca, type: 3}
       propertyPath: m_TagString
       value: Item
       objectReference: {fileID: 0}
@@ -65,7 +69,10 @@ PrefabInstance:
       addedObject: {fileID: 4447612392357312223}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a8b50bf1c51aa064789b6ae87ddf1cca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2505906211903393485}
+      addedObject: {fileID: 7523385000287564368}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a8b50bf1c51aa064789b6ae87ddf1cca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8449932768296816068}
   m_SourcePrefab: {fileID: 100100000, guid: a8b50bf1c51aa064789b6ae87ddf1cca, type: 3}
 --- !u!1 &55572427419014241 stripped
 GameObject:
@@ -99,8 +106,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &2505906211903393485
-CapsuleCollider:
+--- !u!65 &7523385000287564368
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,8 +124,20 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.78
-  m_Height: 2.5596173
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.1671765, z: -0.051828623}
+  serializedVersion: 3
+  m_Size: {x: 1.24, y: 2.453333, z: 1.24}
+  m_Center: {x: 0.0000010430813, y: 1.1392465, z: -1.5098701e-15}
+--- !u!114 &8449932768296816068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55572427419014241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894aedcb3d24f904db4e019e30bd1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slicedItems:
+  - {fileID: 6242722138268519835, guid: 5b1f0f7ea5d839f4f9f5de226db6a66a, type: 3}
