@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerInteractive : MonoBehaviour
 {
@@ -52,6 +53,24 @@ public class PlayerInteractive : MonoBehaviour
                 Destroy(previousItem);
                 canPickUp = true;
 
+            }
+
+            if(currentItem != null && hit.transform.CompareTag("Dish") && currentItem.GetComponent<Plate>())
+            {
+                var dish = hit.transform;
+                var plate = currentItem;
+                Drop();
+                plate.transform.parent = dish;
+                plate.transform.localPosition = new Vector3(0, 0.2f, 0);
+
+                plate.GetComponent<Rigidbody>().isKinematic = true;     
+                dish.GetComponent<Collider>().enabled = false;
+                plate.tag = "Plate";
+            }
+            if (hit.transform.GetComponent<Plate>())
+            {
+                Plate plate = hit.transform.GetComponent<Plate>();
+                plate.Use();
             }
 /*            if (canPickUp) Drop();*/
             if(currentItem != null)
