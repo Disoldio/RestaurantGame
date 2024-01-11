@@ -9,6 +9,7 @@ TagManager:
   - Interact
   - Dish
   - Plate
+  - PreparedIngredient
   layers:
   - Default
   - TransparentFX

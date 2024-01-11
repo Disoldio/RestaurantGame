@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plate: []
+  yDelta: 0.1
+  startYDelta: 0.1
 --- !u!65 &8670062486802725715
 BoxCollider:
   m_ObjectHideFlags: 0

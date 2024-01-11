@@ -31,7 +31,10 @@ public class PlayerInteractive : MonoBehaviour
 
         if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1.2f, 0), gameObject.transform.forward, out hit, distance))
         {
-            if (hit.transform.tag == "Item" && canPickUp)
+            if (
+                (hit.transform.tag == "Item" || hit.transform.tag == "PreparedIngredient")
+                && canPickUp
+                )
             {
                 PickUp(hit.transform.gameObject);
             }
@@ -42,7 +45,7 @@ public class PlayerInteractive : MonoBehaviour
                 PickUp(container.GetItemFromContainer());
             }
 
-            if (hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<Ingredient>())
+            if (!canPickUp && hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<Ingredient>())
             {
                 CuttingBoard board = hit.transform.GetComponent<CuttingBoard>();
                 CutIngredient(board, currentItem.GetComponent<Ingredient>());
@@ -56,10 +59,10 @@ public class PlayerInteractive : MonoBehaviour
                 PlacePlateAt(plate, dish);
             }
 
-            if (hit.transform.GetComponent<Plate>())
+            if (!canPickUp && hit.transform.GetComponent<Plate>() && currentItem.CompareTag("PreparedIngredient"))
             {
                 Plate plate = hit.transform.GetComponent<Plate>();
-                plate.Use();
+                PlaceItemOnPlate(currentItem, plate);
             }
         }
     }
@@ -78,7 +81,9 @@ public class PlayerInteractive : MonoBehaviour
     void CutIngredient(CuttingBoard board, Ingredient ingredient)
     {
         Drop();
+
         board.GetItemsFromIngredient(ingredient);
+
         Destroy(ingredient.gameObject);
     }
 
@@ -92,6 +97,13 @@ public class PlayerInteractive : MonoBehaviour
         plate.GetComponent<Rigidbody>().isKinematic = true;
         placement.GetComponent<Collider>().enabled = false;
         plate.tag = "Plate";
+    }
+
+    void PlaceItemOnPlate(GameObject item, Plate plate)
+    {
+        Drop();
+
+        plate.PutItem(item);
     }
 
     void Drop()
