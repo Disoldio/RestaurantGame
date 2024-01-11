@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000023841858
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: PreparedIngredient
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -70,6 +70,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1311429924596028750}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2591533967266180402}
   m_SourcePrefab: {fileID: 100100000, guid: 35c236ba76060ef42b13103b458c95e7, type: 3}
 --- !u!1 &7160410289741179020 stripped
 GameObject:
@@ -122,5 +125,19 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.24, y: 2.5185964, z: 1.24}
-  m_Center: {x: 0.0000010728836, y: 1.1066147, z: -1.2169449e-15}
+  m_Size: {x: 1.24, y: 2.4660733, z: 1.24}
+  m_Center: {x: 0.0000010728836, y: 1.1328763, z: 7.1176433e-16}
+--- !u!114 &2591533967266180402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7160410289741179020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b306225499c6d3741a48624643b51626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yUp: 0.04
+  yDown: 0.01
