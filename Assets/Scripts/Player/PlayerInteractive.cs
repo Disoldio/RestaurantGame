@@ -11,9 +11,15 @@ public class PlayerInteractive : MonoBehaviour
 
     GameObject currentItem;
     bool canPickUp = true;
+
+    List<string> tagsAllowedToPickUp = new List<string>() { 
+        "Item", 
+        "PreparedIngredient",                                   // Tags that player can pick up
+        "Dish" 
+    };
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E)) Interract();
+        if (Input.GetKeyUp(KeyCode.E)) Interact();
         if (Input.GetKeyUp(KeyCode.Q)) Drop();
         DebugRay();
     }
@@ -26,16 +32,13 @@ public class PlayerInteractive : MonoBehaviour
             Color.red);
     }
 
-    void Interract()
+    void Interact()
     {
         RaycastHit hit;
 
         if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1.2f, 0), gameObject.transform.forward, out hit, distance))
         {
-            if (
-                (hit.transform.tag == "Item" || hit.transform.tag == "PreparedIngredient" || hit.transform.tag == "Dish")
-                && canPickUp
-                )
+            if (tagsAllowedToPickUp.Contains(hit.transform.tag) && canPickUp)
             {
                 PickUp(hit.transform.gameObject);
             }
@@ -70,13 +73,14 @@ public class PlayerInteractive : MonoBehaviour
 
     void PickUp(GameObject item)
     {
-        print(item);
         currentItem = item;
+
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.transform.parent = transform;
         currentItem.transform.localPosition = new Vector3(0, 1, 1.2f);
         currentItem.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         currentItem.GetComponent<Collider>().enabled = false;
+
         canPickUp = false;
     }
 
@@ -142,6 +146,7 @@ public class PlayerInteractive : MonoBehaviour
         currentItem.GetComponent<Collider>().enabled = true;
         currentItem.transform.parent = null;
         currentItem.GetComponent<Rigidbody>().isKinematic = false;
+
         currentItem = null;
         canPickUp = true;
     }
