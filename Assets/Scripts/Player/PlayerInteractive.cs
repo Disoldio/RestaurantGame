@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -32,7 +33,7 @@ public class PlayerInteractive : MonoBehaviour
         if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1.2f, 0), gameObject.transform.forward, out hit, distance))
         {
             if (
-                (hit.transform.tag == "Item" || hit.transform.tag == "PreparedIngredient")
+                (hit.transform.tag == "Item" || hit.transform.tag == "PreparedIngredient" || hit.transform.tag == "Dish")
                 && canPickUp
                 )
             {
@@ -51,12 +52,12 @@ public class PlayerInteractive : MonoBehaviour
                 CutIngredient(board, currentItem.GetComponent<Ingredient>());
             }
 
-            if(currentItem != null && hit.transform.CompareTag("Dish") && currentItem.GetComponent<Plate>())
+            if(currentItem != null && hit.transform.CompareTag("Placement") && currentItem.GetComponent<Plate>() && !currentItem.CompareTag("Dish"))
             {
-                Transform dish = hit.transform;
+                GameObject placement = hit.transform.gameObject;
                 Plate plate = currentItem.GetComponent<Plate>();
 
-                PlacePlateAt(plate, dish);
+                PlacePlateAt(plate, placement);
             }
 
             if (!canPickUp && hit.transform.GetComponent<Plate>() && currentItem.CompareTag("PreparedIngredient"))
@@ -69,6 +70,7 @@ public class PlayerInteractive : MonoBehaviour
 
     void PickUp(GameObject item)
     {
+        print(item);
         currentItem = item;
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.transform.parent = transform;
@@ -87,23 +89,52 @@ public class PlayerInteractive : MonoBehaviour
         Destroy(ingredient.gameObject);
     }
 
-    void PlacePlateAt(Plate plate, Transform placement)
+    void PlacePlateAt(Plate plate, GameObject placement)
     {
         Drop();
 
-        plate.transform.parent = placement;
+        plate.transform.parent = placement.transform;
         plate.transform.localPosition = new Vector3(0, 0.2f, 0);
 
         plate.GetComponent<Rigidbody>().isKinematic = true;
         placement.GetComponent<Collider>().enabled = false;
         plate.tag = "Plate";
+        plate.SetPlacement(placement);
     }
 
     void PlaceItemOnPlate(GameObject item, Plate plate)
     {
+        IngredientOrder itemOrder = item.GetComponent<PreparedIngredient>().GetOrder();
+
+        bool isDefault = plate.GetLastItem() != null && itemOrder.Equals(IngredientOrder.DEFAULT);
+        bool isFirst = plate.GetLastItem() == null && itemOrder.Equals(IngredientOrder.FIRST);
+        bool isLast = plate.GetLastItem() != null && itemOrder.Equals(IngredientOrder.LAST);
+
+        if (isLast)
+        {
+            PlaceLastItemOnPlate(item, plate);
+        }
+
+        if (isFirst || isDefault)
+        {
+            Drop();
+
+            plate.PutItem(item);
+        }
+    }
+
+    void PlaceLastItemOnPlate(GameObject item, Plate plate)
+    {
+        GameObject placement = plate.GetPlacement();
+
         Drop();
 
         plate.PutItem(item);
+        plate.transform.parent = null;
+
+        plate.GetComponent<Rigidbody>().isKinematic = false;
+        placement.GetComponent<Collider>().enabled = true;
+        plate.tag = "Dish";
     }
 
     void Drop()
