@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> slicedItems;
+    [SerializeField] private List<GameObject> preparedIngredientPrefabs;
 
-    public List<GameObject> GetSlicedItems()
+    protected List<GameObject> GetPreparedIngredients()
     {
-        return slicedItems;
+        return preparedIngredientPrefabs;
     }
 }
