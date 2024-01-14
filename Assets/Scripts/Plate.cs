@@ -26,6 +26,8 @@ public class Plate : MonoBehaviour
 
     public void PutItem(GameObject item)
     {
+        print("Placing item on plate from plate");
+
         float nextYDelta = item.GetComponent<PreparedIngredient>().getYUp() - item.GetComponent<PreparedIngredient>().getYDown();
 
         item.transform.parent = transform;

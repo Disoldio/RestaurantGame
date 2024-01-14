@@ -49,10 +49,31 @@ public class PlayerInteractive : MonoBehaviour
                 PickUp(container.GetItemFromContainer());
             }
 
-            if (!canPickUp && hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<Ingredient>())
+            if (!canPickUp && hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<CuttableIngredient>())
             {
                 CuttingBoard board = hit.transform.GetComponent<CuttingBoard>();
-                CutIngredient(board, currentItem.GetComponent<Ingredient>());
+                CutIngredient(board, currentItem.GetComponent<CuttableIngredient>());
+            }
+
+            if (canPickUp && hit.transform.GetComponent<Pan>() && hit.transform.GetComponent<Pan>().HasItem())
+            {
+                Pan pan = hit.transform.GetComponent<Pan>();
+
+                PickUp(pan.GetItem());
+                pan.OnItemRemove();
+            }
+
+            if (!canPickUp && hit.transform.GetComponent<Pan>() && currentItem.GetComponent<CookableIngredient>() && !hit.transform.GetComponent<Pan>().HasItem())
+            {
+                Pan pan = hit.transform.GetComponent<Pan>();
+                GameObject previousItem = currentItem;
+
+                Drop();
+
+                pan.MakeItemFromIngredient(previousItem.GetComponent<CookableIngredient>());
+                pan.OnItemPlace();
+
+                Destroy(previousItem);
             }
 
             if(currentItem != null && hit.transform.CompareTag("Placement") && currentItem.GetComponent<Plate>() && !currentItem.CompareTag("Dish"))
@@ -75,6 +96,7 @@ public class PlayerInteractive : MonoBehaviour
     {
         currentItem = item;
 
+        print("Picking up");
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.transform.parent = transform;
         currentItem.transform.localPosition = new Vector3(0, 1, 1.2f);
@@ -84,11 +106,11 @@ public class PlayerInteractive : MonoBehaviour
         canPickUp = false;
     }
 
-    void CutIngredient(CuttingBoard board, Ingredient ingredient)
+    void CutIngredient(CuttingBoard board, CuttableIngredient ingredient)
     {
         Drop();
 
-        board.GetItemsFromIngredient(ingredient);
+        board.MakeItemsFromIngredient(ingredient);
 
         Destroy(ingredient.gameObject);
     }
@@ -116,6 +138,8 @@ public class PlayerInteractive : MonoBehaviour
 
         if (isLast)
         {
+            Drop();
+
             PlaceLastItemOnPlate(item, plate);
         }
 
@@ -130,8 +154,6 @@ public class PlayerInteractive : MonoBehaviour
     void PlaceLastItemOnPlate(GameObject item, Plate plate)
     {
         GameObject placement = plate.GetPlacement();
-
-        Drop();
 
         plate.PutItem(item);
         plate.transform.parent = null;
