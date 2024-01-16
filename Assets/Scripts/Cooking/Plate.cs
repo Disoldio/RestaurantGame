@@ -8,6 +8,7 @@ public class Plate : MonoBehaviour
     private GameObject placement;
     private GameObject lastItem;
     private float currentYDelta;
+    [SerializeField] private List<GameObject> listItems;
 
     public void SetPlacement(GameObject newPlacement)
     {
@@ -37,5 +38,6 @@ public class Plate : MonoBehaviour
 
         lastItem = item;
         currentYDelta += nextYDelta;
+        listItems.Add(item);
     }
 }
