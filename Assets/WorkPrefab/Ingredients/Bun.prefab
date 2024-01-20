@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  interactColor: {r: 0, g: 1, b: 1, a: 1}
+  interactColor: {r: 1, g: 1, b: 1, a: 1}
   preparedIngredientPrefabs:
   - {fileID: 2366236084208396715, guid: bc5d6eeb3b391eb49a380436b862bd0b, type: 3}
   - {fileID: 5532421632146963522, guid: c6c5384fe8227c740981c046a34de64c, type: 3}

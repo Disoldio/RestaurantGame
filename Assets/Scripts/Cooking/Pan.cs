@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pan : MonoBehaviour, PreparingTool<CookableIngredient>
+public class Pan : IOutlinableImpl, PreparingTool<CookableIngredient>
 {
     private GameObject currentItem;
     public List<GameObject> MakeItemsFromIngredient(CookableIngredient ingredient)

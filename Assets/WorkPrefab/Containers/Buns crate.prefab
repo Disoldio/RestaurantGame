@@ -117,4 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a56179ceb2eaf4aa60aecd0d0edcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultColor: {r: 0, g: 0, b: 0, a: 1}
+  interactColor: {r: 1, g: 1, b: 1, a: 1}
   item: {fileID: 6143879608737849540, guid: c59d47f75231163478728a591723391e, type: 3}

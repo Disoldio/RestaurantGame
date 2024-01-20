@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  interactColor: {r: 0, g: 1, b: 1, a: 1}
+  interactColor: {r: 1, g: 1, b: 1, a: 1}
   order: 1
   yUp: 0.2
   yDown: 0
