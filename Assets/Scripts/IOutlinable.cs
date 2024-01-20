@@ -5,10 +5,10 @@ using UnityEngine;
 public interface IOutlinable
 {
     Outline outline { get; }
-    [SerializeField] Color defaultColorImpl { get; }
-    [SerializeField] Color interactColorImpl { get; }
+    Color defaultColorImpl { get; }
+    Color interactColorImpl { get; }
 
-    void SetColorForOutline(Color color)
+    public void SetColorForOutline(Color color)
     {
         outline.OutlineColor = color;
     }

@@ -45,7 +45,7 @@ public class PlayerInteractive : MonoBehaviour
 
         if (Physics.Raycast(gameObject.transform.position + rayPosition, gameObject.transform.forward, out hit, distance))
         {
-            if (hit.transform.GetComponent<MonoBehaviour>() is IOutlinable)
+            if (hit.transform.GetComponent<IOutlinableImpl>())
             {
                 if (currentOutlinable != null)
                     currentOutlinable.SetColorForOutline(currentOutlinable.defaultColorImpl);

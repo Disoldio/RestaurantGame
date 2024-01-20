@@ -3,20 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : MonoBehaviour, IOutlinable
+public class Plate : IOutlinableImpl
 {
     private GameObject placement;
     private GameObject lastItem;
     private float currentYDelta;
 
     [SerializeField] private List<GameObject> listItems;
-    [SerializeField] private Color defaultColor = Color.black;
-    [SerializeField] private Color interactColor = Color.cyan;
-    public Outline outline => GetComponent<Outline>();
-
-    public Color defaultColorImpl => defaultColor;
-
-    public Color interactColorImpl => interactColor;
 
     public void SetPlacement(GameObject newPlacement)
     {
