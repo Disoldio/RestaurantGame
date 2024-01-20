@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3254671917038799059}
   - component: {fileID: 7370080745758488842}
   - component: {fileID: 3055443622221039430}
+  - component: {fileID: 2041664743116880883}
   m_Layer: 0
   m_Name: Fries
   m_TagString: Item
@@ -170,3 +171,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.24, y: 2.453333, z: 1.24}
   m_Center: {x: 0.0000010430813, y: 1.1392465, z: -1.5098701e-15}
+--- !u!114 &2041664743116880883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374505565886399501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
