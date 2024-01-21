@@ -8,9 +8,12 @@ using UnityEngine.UIElements;
 public class PlayerInteractive : MonoBehaviour
 {
     [SerializeField] private float distance = 1f;
+    [SerializeField] private bool debug = false;
+    [SerializeField] private Vector3 rayPosition = new Vector3(0, 1.2f, 0);
 
     GameObject currentItem;
     bool canPickUp = true;
+    IOutlinable currentOutlinable;
 
     List<string> tagsAllowedToPickUp = new List<string>() { 
         "Item", 
@@ -19,76 +22,101 @@ public class PlayerInteractive : MonoBehaviour
     };
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E)) Interact();
-        if (Input.GetKeyUp(KeyCode.Q)) Drop();
-        DebugRay();
+        RayInteract();
+
+        if (Input.GetKeyUp(KeyCode.Q)) 
+            Drop();
     }
 
     void DebugRay()
     {
         Debug.DrawRay(
-            gameObject.transform.position + new Vector3(0, 1.2f, 0),
+            gameObject.transform.position + rayPosition,
             gameObject.transform.forward * distance,
             Color.red);
     }
 
-    void Interact()
+    void RayInteract()
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(gameObject.transform.position + new Vector3(0, 1.2f, 0), gameObject.transform.forward, out hit, distance))
+        if (debug)
+            DebugRay();
+
+        if (Physics.Raycast(gameObject.transform.position + rayPosition, gameObject.transform.forward, out hit, distance))
         {
-            if (tagsAllowedToPickUp.Contains(hit.transform.tag) && canPickUp)
+            if (hit.transform.GetComponent<IOutlinableImpl>())
             {
-                PickUp(hit.transform.gameObject);
+                if (currentOutlinable != null)
+                    currentOutlinable.SetColorForOutline(currentOutlinable.defaultColorImpl);
+
+                currentOutlinable = hit.transform.GetComponent<IOutlinable>();
+                currentOutlinable.SetColorForOutline(currentOutlinable.interactColorImpl);
             }
 
-            if (hit.transform.GetComponent<Container>() && canPickUp)
-            {
-                Container container = hit.transform.GetComponent<Container>();
-                PickUp(container.GetItemFromContainer());
-            }
+            if (Input.GetKeyUp(KeyCode.E)) 
+                InteractWith(hit);
+        }
+        else if(currentOutlinable != null)
+        {
+            currentOutlinable.SetColorForOutline(currentOutlinable.defaultColorImpl);
+            currentOutlinable = null;
+        }
+    }
 
-            if (!canPickUp && hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<CuttableIngredient>())
-            {
-                CuttingBoard board = hit.transform.GetComponent<CuttingBoard>();
-                CutIngredient(board, currentItem.GetComponent<CuttableIngredient>());
-            }
+    void InteractWith(RaycastHit hit)
+    {
 
-            if (canPickUp && hit.transform.GetComponent<Pan>() && hit.transform.GetComponent<Pan>().HasItem())
-            {
-                Pan pan = hit.transform.GetComponent<Pan>();
+        if (tagsAllowedToPickUp.Contains(hit.transform.tag) && canPickUp)
+        {
+            PickUp(hit.transform.gameObject);
+        }
 
-                PickUp(pan.GetItem());
-                pan.OnItemRemove();
-            }
+        if (hit.transform.GetComponent<Container>() && canPickUp)
+        {
+            Container container = hit.transform.GetComponent<Container>();
+            PickUp(container.GetItemFromContainer());
+        }
 
-            if (!canPickUp && hit.transform.GetComponent<Pan>() && currentItem.GetComponent<CookableIngredient>() && !hit.transform.GetComponent<Pan>().HasItem())
-            {
-                Pan pan = hit.transform.GetComponent<Pan>();
-                GameObject previousItem = currentItem;
+        if (!canPickUp && hit.transform.GetComponent<CuttingBoard>() && currentItem.GetComponent<CuttableIngredient>())
+        {
+            CuttingBoard board = hit.transform.GetComponent<CuttingBoard>();
+            CutIngredient(board, currentItem.GetComponent<CuttableIngredient>());
+        }
 
-                Drop();
+        if (canPickUp && hit.transform.GetComponent<Pan>() && hit.transform.GetComponent<Pan>().HasItem())
+        {
+            Pan pan = hit.transform.GetComponent<Pan>();
 
-                pan.MakeItemFromIngredient(previousItem.GetComponent<CookableIngredient>());
-                pan.OnItemPlace();
+            PickUp(pan.GetItem());
+            pan.OnItemRemove();
+        }
 
-                Destroy(previousItem);
-            }
+        if (!canPickUp && hit.transform.GetComponent<Pan>() && currentItem.GetComponent<CookableIngredient>() && !hit.transform.GetComponent<Pan>().HasItem())
+        {
+            Pan pan = hit.transform.GetComponent<Pan>();
+            GameObject previousItem = currentItem;
 
-            if(currentItem != null && hit.transform.CompareTag("Placement") && currentItem.GetComponent<Plate>() && !currentItem.CompareTag("Dish"))
-            {
-                GameObject placement = hit.transform.gameObject;
-                Plate plate = currentItem.GetComponent<Plate>();
+            Drop();
 
-                PlacePlateAt(plate, placement);
-            }
+            pan.MakeItemFromIngredient(previousItem.GetComponent<CookableIngredient>());
+            pan.OnItemPlace();
 
-            if (!canPickUp && hit.transform.GetComponent<Plate>() && currentItem.CompareTag("PreparedIngredient"))
-            {
-                Plate plate = hit.transform.GetComponent<Plate>();
-                PlaceItemOnPlate(currentItem, plate);
-            }
+            Destroy(previousItem);
+        }
+
+        if(currentItem != null && hit.transform.CompareTag("Placement") && currentItem.GetComponent<Plate>() && !currentItem.CompareTag("Dish"))
+        {
+            GameObject placement = hit.transform.gameObject;
+            Plate plate = currentItem.GetComponent<Plate>();
+
+            PlacePlateAt(plate, placement);
+        }
+
+        if (!canPickUp && hit.transform.GetComponent<Plate>() && currentItem.CompareTag("PreparedIngredient"))
+        {
+            Plate plate = hit.transform.GetComponent<Plate>();
+            PlaceItemOnPlate(currentItem, plate);
         }
     }
 

@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 7492117680423378779}
   - component: {fileID: 7506094434452804442}
   - component: {fileID: 3244353136589432513}
+  - component: {fileID: 1229927157003330697}
+  - component: {fileID: 8327505807947451263}
   m_Layer: 0
-  m_Name: SodaDispenserTableTopMAIN
-  m_TagString: Untagged
+  m_Name: SodaDispenser
+  m_TagString: Container
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,3 +107,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.036677077, y: 0.04231703, z: 0.02839645}
   m_Center: {x: 0.00028048363, y: 0.015567435, z: -0.00041425135}
+--- !u!114 &1229927157003330697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88582715988749927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a56179ceb2eaf4aa60aecd0d0edcde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultColor: {r: 0, g: 0, b: 0, a: 1}
+  interactColor: {r: 1, g: 1, b: 1, a: 1}
+  item: {fileID: 8104726432123376473, guid: f16eabb9d7d5946488425aa795f0c709, type: 3}
+--- !u!114 &8327505807947451263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88582715988749927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

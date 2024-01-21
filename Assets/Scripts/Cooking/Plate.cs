@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : MonoBehaviour
+public class Plate : IOutlinableImpl
 {
     private GameObject placement;
     private GameObject lastItem;
     private float currentYDelta;
+
+    [SerializeField] private List<GameObject> listItems;
 
     public void SetPlacement(GameObject newPlacement)
     {
@@ -37,5 +39,6 @@ public class Plate : MonoBehaviour
 
         lastItem = item;
         currentYDelta += nextYDelta;
+        listItems.Add(item);
     }
 }

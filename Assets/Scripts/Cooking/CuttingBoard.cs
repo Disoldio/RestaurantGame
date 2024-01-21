@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingBoard : MonoBehaviour, PreparingTool<CuttableIngredient>
+public class CuttingBoard : IOutlinableImpl, PreparingTool<CuttableIngredient>
 {
     public List<GameObject> MakeItemsFromIngredient(CuttableIngredient ingredient)
     {
