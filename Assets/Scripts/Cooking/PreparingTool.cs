@@ -8,5 +8,4 @@ public interface PreparingTool<T> where T : Ingredient
     float currentCookingTimeImpl { get; set; }
     PlayerInteractive playerImpl {  get; set; }
     List<GameObject> MakeItemsFromIngredient(T ingredient);
-    abstract void OnIngredientReady(T ingredient);
 }

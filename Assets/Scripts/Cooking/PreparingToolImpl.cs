@@ -13,7 +13,6 @@ public abstract class PreparingToolImpl<T> : IOutlinableImpl, PreparingTool<T> w
 
     public abstract List<GameObject> MakeItemsFromIngredient(T ingredient);
 
-    public abstract void OnIngredientReady(T ingredient);
     void Update()
     {
         if (currentIngredientImpl != null)
@@ -27,5 +26,14 @@ public abstract class PreparingToolImpl<T> : IOutlinableImpl, PreparingTool<T> w
             }
             currentCookingTimeImpl += Time.deltaTime;
         }
+    }
+    public void OnIngredientReady(T ingredient)
+    {
+        MakeItemsFromIngredient(ingredient);
+        Destroy(currentIngredient.gameObject);
+        currentIngredient = null;
+        player.enabled = true;
+        player.GetComponent<PlayerController>().enabled = true;
+        currentCookingTime = 0f;
     }
 }

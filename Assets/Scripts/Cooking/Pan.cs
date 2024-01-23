@@ -43,24 +43,11 @@ public class Pan : PreparingToolImpl<CookableIngredient>
     }
     public void StartCookingIngredient(CookableIngredient ingredient, PlayerInteractive player)
     {
-        print($"Ingredient on pan: {ingredient}");
         currentIngredient = ingredient;
         currentIngredient.transform.parent = transform;
         currentIngredient.transform.localPosition = Vector3.zero;
         player.enabled = false;
         player.GetComponent<PlayerController>().enabled = false;
         this.player = player;
-        print($"Started preparing {ingredient}");
-    }
-
-    public override void OnIngredientReady(CookableIngredient ingredient)
-    {
-        print($"{currentIngredient} is ready!");
-        MakeItemsFromIngredient(currentIngredient);
-        Destroy(currentIngredient.gameObject);
-        currentIngredient = null;
-        player.enabled = true;
-        player.GetComponent<PlayerController>().enabled = true;
-        currentCookingTime = 0f;
     }
 }

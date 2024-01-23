@@ -99,8 +99,6 @@ public class PlayerInteractive : MonoBehaviour
             Drop();
 
             pan.OnItemPlace(previousItem.GetComponent<CookableIngredient>(), this);
-
-            /*Destroy(previousItem);*/
         }
 
         if(currentItem != null && hit.transform.CompareTag("Placement") && currentItem.GetComponent<Plate>() && !currentItem.CompareTag("Dish"))
@@ -122,7 +120,6 @@ public class PlayerInteractive : MonoBehaviour
     {
         currentItem = item;
 
-        print("Picking up");
         currentItem.GetComponent<Rigidbody>().isKinematic = true;
         currentItem.transform.parent = transform;
         currentItem.transform.localPosition = new Vector3(0, 1, 1.2f);
@@ -137,8 +134,6 @@ public class PlayerInteractive : MonoBehaviour
         Drop();
 
         board.StartSlicingIngredient(ingredient, this);
-
-        /*Destroy(ingredient.gameObject);*/
     }
 
     void PlacePlateAt(Plate plate, GameObject placement)
