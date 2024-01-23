@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingBoard : IOutlinableImpl, PreparingTool<CuttableIngredient>
+public class CuttingBoard : PreparingToolImpl<CuttableIngredient>
 {
-    private CuttableIngredient currentIngredient;
-    private float currentCookingTime = 0f;
-    private PlayerInteractive player;
-    public List<GameObject> MakeItemsFromIngredient(CuttableIngredient ingredient)
+    public override List<GameObject> MakeItemsFromIngredient(CuttableIngredient ingredient)
     {
         currentIngredient = ingredient;
 
@@ -31,23 +28,14 @@ public class CuttingBoard : IOutlinableImpl, PreparingTool<CuttableIngredient>
         print($"Started preparing {ingredient}");
     }
 
-    void Update()
+    public override void OnIngredientReady(CuttableIngredient ingredient)
     {
-        if(currentIngredient != null)
-        {
-            float cookingTime = currentIngredient.getPreparingTime();
-            if(currentCookingTime >= cookingTime) {
-                print($"{currentIngredient} is ready!");
-                MakeItemsFromIngredient(currentIngredient);
-                Destroy(currentIngredient.gameObject);
-                currentIngredient = null;
-                player.enabled = true;
-                player.GetComponent<PlayerController>().enabled = true;
-                currentCookingTime = 0f;
-
-                return;
-            }
-            currentCookingTime += Time.deltaTime;
-        }
+        print($"{ingredient} is ready!");
+        MakeItemsFromIngredient(ingredient);
+        Destroy(ingredient.gameObject);
+        currentIngredient = null;
+        player.enabled = true;
+        player.GetComponent<PlayerController>().enabled = true;
+        currentCookingTime = 0f;
     }
 }
