@@ -24,7 +24,7 @@ public class PlayerInteractive : MonoBehaviour
     {
         RayInteract();
 
-        if (Input.GetKeyUp(KeyCode.Q)) 
+        if (Input.GetKeyUp(KeyCode.Q)&& currentItem != null) 
             Drop();
     }
 
@@ -66,7 +66,6 @@ public class PlayerInteractive : MonoBehaviour
 
     void InteractWith(RaycastHit hit)
     {
-
         if (tagsAllowedToPickUp.Contains(hit.transform.tag) && canPickUp)
         {
             PickUp(hit.transform.gameObject);
@@ -84,7 +83,7 @@ public class PlayerInteractive : MonoBehaviour
             CutIngredient(board, currentItem.GetComponent<CuttableIngredient>());
         }
 
-        if (canPickUp && hit.transform.GetComponent<Pan>() && hit.transform.GetComponent<Pan>().HasItem())
+        if (canPickUp && hit.transform.GetComponent<Pan>() && hit.transform.GetComponent<Pan>().HasItem() && !hit.transform.GetComponent<Pan>().HasIngredient())
         {
             Pan pan = hit.transform.GetComponent<Pan>();
 
@@ -92,7 +91,7 @@ public class PlayerInteractive : MonoBehaviour
             pan.OnItemRemove();
         }
 
-        if (!canPickUp && hit.transform.GetComponent<Pan>() && currentItem.GetComponent<CookableIngredient>() && !hit.transform.GetComponent<Pan>().HasItem())
+        if (!canPickUp && hit.transform.GetComponent<Pan>() && currentItem.GetComponent<CookableIngredient>() && !hit.transform.GetComponent<Pan>().HasItem() && !hit.transform.GetComponent<Pan>().HasIngredient())
         {
             Pan pan = hit.transform.GetComponent<Pan>();
             GameObject previousItem = currentItem;
@@ -196,8 +195,12 @@ public class PlayerInteractive : MonoBehaviour
         currentItem.transform.parent = null;
         currentItem.GetComponent<Rigidbody>().isKinematic = false;
 
+        if(currentOutlinable != null)
+        {
+            currentOutlinable.SetColorForOutline(currentOutlinable.defaultColorImpl);
+            currentOutlinable = null;
+        }
         currentItem = null;
-        currentOutlinable = null;
         canPickUp = true;
     }
 }
