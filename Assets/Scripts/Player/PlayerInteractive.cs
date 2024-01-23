@@ -24,7 +24,7 @@ public class PlayerInteractive : MonoBehaviour
     {
         RayInteract();
 
-        if (Input.GetKeyUp(KeyCode.Q)&& currentItem != null) 
+        if (Input.GetKeyUp(KeyCode.Q) && currentItem != null) 
             Drop();
     }
 
